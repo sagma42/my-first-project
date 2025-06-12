@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <picture id="arkaplan" src="ph/gamb.jpg"></picture>
+    <title>jackpot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <audio id="kazancsesi" src="sound/win.mp3"></audio>
+    <audio id="kayipsesi" src="sound/loss.mp3"></audio>
+
+
+<div class=divbu>
+    <h1 class="bilgi">bakiye: <span id ='bakiye'>1000</span>₺</h1>
+    <h1 class="bilgi1">bahis: <span id ='bahis'>100</span>₺</h1>  
+</div>
+
+
+
+
+
+<button class="oyna" onclick="cevir()">OYNA!</button>
+
+<div class="bahisdiv">
+
+    <button class="bahisart" onclick="bahsiartir()">Bet Yükselt +50</button>
+    <button onclick="bahsidusur()">Bet Düşür -50</button>
+
+</div>
+
+<script>
+let bakiye = 1000;
+let bahis = 100; 
+
+
+function bahsidusur(){
+    if(bahis <= 0){
+        alert('Bahis 0ın altında olamaz!')
+    }
+    else{      
+    bahis -= 50
+    document.getElementById("bahis").textContent= bahis;
+    }}
+
+
+function bahsiartir(){ 
+    if(bahis >= bakiye){
+        alert('Bahis bakiyeden yüksek olamaz!')
+}
+    else{
+        bahis += 50
+        document.getElementById("bahis").textContent = bahis;
+}}
+
+setTimeout(() => {1
+    if (bahis < 0) 
+            bahis=10
+            alert("Bahis 10'un altında olamaz")
+}, timeout);
+
+
+    function cevir(){
+        randomN = Math.random()
+
+        if (bakiye <= 0){
+            alert('Bakiye bitti site yenileniyor...')
+                location.reload();  
+        }
+
+
+        else if (bahis > bakiye){
+        alert('Bakiyenizden Yüksek bahis yapamazsınız!')  
+        }
+
+        else if (bakiye < bahis){
+        bahis = bakiye
+        alert('Bahsiniz bakiyenizden yüksek olduğu için eşitlendi...')    
+        }
+
+        else if  (bakiye < 0){
+            (bakiye = 0)
+        }
+
+        else if (randomN > 0.05 && randomN <0.2) {
+            document.getElementById("kazancsesi").play();
+            const kazanc = bahis * 2;
+            bakiye += kazanc;
+            alert("2X Kazandın! +" + kazanc + "₺");
+        }  
+
+        else if (randomN < 0.05){  
+            document.getElementById("kazancsesi").play();
+            const uckati = bahis * 3;
+            bakiye += uckati;
+            alert("3X Kazandım! +" + uckati + "₺");
+        }
+
+        else    {
+            document.getElementById("kayipsesi").play();
+            const kayip = bahis;
+            bakiye -= kayip;
+            alert("Kaybettin -" + kayip + "₺");
+        }
+
+        document.getElementById("bakiye").textContent=bakiye;
+    }
+</script>
+</body>
+</html>
