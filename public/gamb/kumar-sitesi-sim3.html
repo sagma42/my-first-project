@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Tahmin Etme Oyunu</title>
+    <link rel="stylesheet" href="./kumarsim3.css">
+</head>
+<body>
+
+    <p class="bilgilendirme">OYUNA BAŞLA TUŞUNA BASTIKTAN SONRA 1 İLE 10 ARASINDAKİ SAYIYI BULMAYA ÇALIŞIN!</p>
+
+    <div class="tuslar">
+        <button id="tus1" onclick="basla()">OYUNA BAŞLA</button>
+        <button onclick="dene()">DENE!</button>
+    </div>
+
+    <div class="divbu">
+        <h1 class="bilgi">Bakiye: <span id="bakiye">1000</span>₺</h1>
+        <h1 class="bilgiB">Bahis: <span id="bahis">100</span>₺</h1>  
+    </div>
+
+    <div class="bahisDiv">
+        <button onclick="bahisartir()">Bahis artır +50!</button>
+        <button onclick="bahsiazalt()">Bahis azalt -50!</button>
+        <button onclick="bahisMax()">Max bahis!</button>
+    </div>
+
+    <button class="anaSayfa" id="mM" onclick="window.location.href='../index.html'">Ana sayfaya dön</button>
+
+    <div class="textBu" id="inputId">
+        <input class="textBu" min="1" max="10" type="number" id="kGiris" placeholder="Sayıyı tahmin ediniz">
+    </div>
+
+    <script>
+        let bakiye = parseInt(localStorage.getItem("bakiye")) || 1000;
+        let bahis = 100;
+        let pcSayi = Math.ceil(Math.random() * 10);
+
+        function guncelle() {
+            document.getElementById("bakiye").textContent = bakiye;
+            document.getElementById("bahis").textContent = bahis;
+            localStorage.setItem("bakiye", bakiye);
+        }
+
+        function bahisMax() {
+            bahis = bakiye;
+            guncelle();
+        }
+
+        function bahsiazalt() {
+            bahis -= 50;
+            if (bahis < 0) {
+                bahis = 0;
+                alert('Bahis 0’dan küçük olamaz');
+            }
+            if (bahis > bakiye) {
+                bahis = bakiye;
+                alert('Bahis bakiyeden yüksek olamaz.');
+            }
+            guncelle();
+        }
+
+        function bahisartir() {
+            bahis += 50;
+            if (bahis > bakiye) {
+                bahis = bakiye;
+                alert('Bahis bakiyeden yüksek olamaz!');
+            }
+            guncelle();
+        }
+
+        function basla() {
+            pcSayi = Math.ceil(Math.random() * 10);
+            guncelle();
+        }
+
+        function dene() {
+            let girisK = parseInt(document.getElementById("kGiris").value);
+
+            if (bakiye <= 0) {
+                bahis = 0;
+                alert("Bakiyeniz bitti! 100₺ ile yeniden başlıyorsunuz.");
+                bakiye = 100;
+                guncelle();
+                return;
+            }
+
+            if (isNaN(girisK) || girisK < 1 || girisK > 10) {
+                alert("Lütfen 1 ile 10 arasında bir sayı giriniz.");
+                return;
+            }
+
+            if (girisK === pcSayi) {
+                alert('Kazandın!!');
+                bakiye += bahis * 3.5;
+            } else {
+                alert('Başaramadın!');
+                bakiye -= bahis;
+                if (bakiye < 0) bakiye = 0;
+            }
+
+            guncelle();
+            basla();
+        }
+
+        // Sayfa ilk açıldığında güncelle
+        guncelle();
+    </script>
+</body>
+</html>
