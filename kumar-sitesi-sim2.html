@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <picture id="arkaplan" src="ph/gamb.jpg"></picture>
-    <title>jackpot</title>
-    <link rel="stylesheet" href="style.css">
+    <title>JACKPOT</title>
+    <link rel="stylesheet" href="./kumarsim2.css">
 </head>
 
 
@@ -20,21 +20,84 @@
 </div>
 
 
-
-
-
 <button class="oyna" onclick="cevir()">OYNA!</button>
 
 <div class="bahisdiv">
-
-    <button class="bahisart" onclick="bahsiartir()">Bet Yükselt +50</button>
-    <button onclick="bahsidusur()">Bet Düşür -50</button>
-
+    <button class="bahisart" onclick="bahsiartir()" onmousedown = "baslatArtirma()" onmouseup = durdurArtirma() onmouseleave = "durdurArtirma()">Bet Yükselt +50</button>
+    <button onclick="bahsidusur()" onmousedown="baslatAzaltma()" onmouseup = "durdurAzaltma()" onmouseleave="durdurAzaltma()" >Bet Düşür -50</button>
+    <button class="bahisfull" onclick="betfull()">Max Bet!</button>
 </div>
 
+
+    <button class="anaSayfa" onclick="anaSayfa()">Ana Sayfaya Dön</button>
+
 <script>
-let bakiye = 1000;
+let bakiye = localStorage.getItem("bakiye") || 100;
 let bahis = 100; 
+
+
+function baslatArtirma(){
+    if (artirmaInterval) return; // zaten çalışıyorsa tekrar başlatma
+
+    artirmaInterval = setInterval(() => {
+        if (bahis + 50 <= bakiye){
+            bahis += 50;
+            document.getElementById("bahis").textContent = bahis;
+        } 
+        else 
+        {
+            bahis = bakiye;
+            document.getElementById("bahis").textContent = bahis;
+            clearInterval(artirmaInterval);
+            artirmaInterval = null;
+            alert("Bahis bakiyeyi geçemez!");
+        }
+    }, 200);
+}
+function durdurArtirma(){
+    clearInterval(artirmaInterval);
+    artirmaInterval = null;
+}
+
+
+function baslatAzaltma(){
+    if (artirmaInterval) return;
+    
+    azaltInterval = setInterval(() => {
+        if (bahis - 50 <= bakiye){
+            bahis -= 50;
+            document.getElementById("bahis").textContent = bahis;
+        } 
+        else 
+        {
+            bahis <= bakiye, bahis >= bakiye
+            document.getElementById("bahis").textContent = bahis;
+            clearInterval(artirmaInterval);
+            artirmaInterval = null;
+            alert("Bahis bakiyeyi geçemez!");
+        }
+    }, 200);
+    }
+
+    function durdurAzaltma(){
+    clearInterval(azaltInterval);
+    azaltInterval = null;
+}
+
+
+function anaSayfa(){
+    window.location.href='http://127.0.0.1:5500/index.html'
+}
+
+let artirmaInterval;
+
+
+
+function betfull(){
+    bahis = bakiye
+    document.getElementById("bahis").textContent= bahis;
+    }
+
 
 
 function bahsidusur(){
@@ -56,23 +119,12 @@ function bahsiartir(){
         document.getElementById("bahis").textContent = bahis;
 }}
 
-setTimeout(() => {1
-    if (bahis < 0) 
-            bahis=10
-            alert("Bahis 10'un altında olamaz")
-}, timeout);
-
-
     function cevir(){
         randomN = Math.random()
 
-        if (bakiye <= 0){
-            alert('Bakiye bitti site yenileniyor...')
-                location.reload();  
-        }
-
-
-        else if (bahis > bakiye){
+       
+        if (bahis > bakiye){
+            bakiye = bahis
         alert('Bakiyenizden Yüksek bahis yapamazsınız!')  
         }
 
@@ -105,9 +157,12 @@ setTimeout(() => {1
             bakiye -= kayip;
             alert("Kaybettin -" + kayip + "₺");
         }
+        localStorage.setItem("bakiye", bakiye);
 
         document.getElementById("bakiye").textContent=bakiye;
     }
+
+    document.getElementById("bakiye").innerText = bakiye;
 </script>
 </body>
 </html>

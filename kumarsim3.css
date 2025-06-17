@@ -1,0 +1,96 @@
+body{
+background-image: url(./ph/gambsim3.jpg);
+background-repeat: no-repeat;
+background-position: center;
+background-clip: border-box;
+background-attachment: fixed;
+background-size: cover;
+text-align: center;
+text-shadow: 5px 5px 32px purple;
+text-size-adjust: 150px;
+position: relative;
+top: 250px;
+}
+
+.bilgilendirme{
+    position: relative;
+    top: 800px;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 30px #0471ff ;
+}
+
+.tuslar{
+position: relative;
+top: 50px;
+}
+
+.textBu{
+position: relative; 
+bottom: 500px;
+}
+
+.divbu{
+    position: relative;
+    bottom: 350px;
+color: white;
+text-shadow: 3px 2px 4px 5px black;
+}
+    
+
+.bilgiB{
+position: relative; 
+bottom: 140px;
+left: 500px;
+}
+
+.bilgi{
+position: relative;
+bottom: 80px;
+right: 500px;
+}
+
+.bahisDiv{
+position: relative;
+bottom: 20px;
+
+}
+
+.anaSayfa{
+    position: relative;
+top: 200px;
+right: 500px;
+}
+
+button{
+    height: 100px;
+    width: 200px;
+    border-radius: 60px;
+    background: none;
+    font-size: 20px;
+    border: 1px solid white;
+    box-shadow: 2px 2px 22px inset rgb(132, 0, 255), 1px 1px 32px #0471ff;
+    backdrop-filter: blur(10px);
+    color: white;
+    cursor: pointer;
+}
+
+#inputId{
+    position: relative;
+    top: 30px;
+    padding: 10px;
+}
+
+#kGiris {
+    border-radius: 60px;
+    font-size: 20px;
+    border: 1px solid white;
+    box-shadow: 2px 2px 22px inset red, 4px 4px 32px red;
+    backdrop-filter: blur(100px);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    position: relative;
+    width: 12.75%;
+    height: 30px;
+    font-size: 16px;
+  }
